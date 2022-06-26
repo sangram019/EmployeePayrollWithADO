@@ -1,2 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Welcome to Employee Payroll!");
+using System;
+
+namespace EmployeePayrollWithADO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Employee Payroll!");
+
+            EmployeeRepo repo = new EmployeeRepo();
+            EmployeeModel employee = new EmployeeModel();
+            repo.GetAllEmployee();
+
+        }
+    }
+}
