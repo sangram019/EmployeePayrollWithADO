@@ -74,7 +74,46 @@ namespace EmployeePayrollWithADO
             {
                 this.connection.Close();
             }
+        }
+            public bool AddEmployee(EmployeeModel model)
+            {
+                try
+                {
+                    using (this.connection)
+                    {
+                        SqlCommand command = new SqlCommand("SpAddEmployeeDetails", this.connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@name", model.name);
+                        command.Parameters.AddWithValue("@salary", model.salary);
+                        command.Parameters.AddWithValue("@startdate", model.startdate);
+                        command.Parameters.AddWithValue("@gender", model.gender);
+                        command.Parameters.AddWithValue("@phone", model.phone);
+                        command.Parameters.AddWithValue("@address", model.address);
+                        command.Parameters.AddWithValue("@department", model.department);
+                        command.Parameters.AddWithValue("@basicpay", model.basicpay);
+                        command.Parameters.AddWithValue("@deduction", model.deduction);
+                        command.Parameters.AddWithValue("@taxablepay", model.taxablepay);
+                        command.Parameters.AddWithValue("@incometax", model.incometax);
+                        command.Parameters.AddWithValue("@netpay", model.netpay);
+                        this.connection.Open();
+                        var result = command.ExecuteNonQuery();
+                        this.connection.Close();
+                        if (result != 0)
+                        {
+                            return true;
+                        }
+                        return false;
 
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    this.connection.Close();
+                }
+            }
         }
     }
-}
